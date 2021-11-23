@@ -33,7 +33,7 @@ class Intercept extends Component {
     }
     //通过当前路径找到当前选择的key
     setInfo=()=>{
-        const { setSelectMenu, addOpenMenuTag, pageKey, title, path } = this.props;
+        const { setSelectMenu, addOpenMenuTag, pageKey, title, path,to } = this.props;
         let localtion = window.location;
         let pathname = localtion.pathname;
         let hash = localtion.hash;
@@ -41,16 +41,18 @@ class Intercept extends Component {
         let pagePath = pathname + ( hash || search );
         console.log("当前页路径:",pagePath)
         let openTag = { key:pageKey , title, path }
-        addOpenMenuTag(openTag)
+        if(!to) addOpenMenuTag(openTag)
+
     }
     render() {
-        const { components:Components,key,path } = this.props
+        const { components:Components,key,path,to } = this.props
+        if(to){
+            return (
+                <Components key={key} exact={true} to={to}/>
+            )
+        }
         return (
-            <Components
-                key={key}
-                exact={true}
-                path={path}
-            />
+            <Components key={key} exact={true} path={path}/>
         )
     }
 }
