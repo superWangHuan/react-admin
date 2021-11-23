@@ -47,7 +47,7 @@ class SideMenu extends Component {
         }
     }
     onOpenChange = (keys) => {
-       
+
     }
 }
 const mapStateToProps = (state) => ({

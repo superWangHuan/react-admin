@@ -15,7 +15,6 @@ const mapDispatchToProps = (dispatch) => ({
 class Intercept extends Component {
     constructor(props) {
         super(props)
-        console.log("intercept",this.props)
         if(this.props.cacheLifecycles){
             this.props.cacheLifecycles.didCache(this.componentDidCache)
             this.props.cacheLifecycles.didRecover(this.componentDidRecover)
@@ -47,7 +46,7 @@ class Intercept extends Component {
     render() {
         const { components:Components,key,path } = this.props
         return (
-            <Components 
+            <Components
                 key={key}
                 exact={true}
                 path={path}

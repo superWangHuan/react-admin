@@ -19,13 +19,14 @@ export default function menus(state = {}, action) {
             }
             return { ...state, openMenuTags: openMenuTags }
         case DEL_CLOSE_MENUS_TAG:
-            let closeMenuKey = action.key;
+            let closeMenuKey = action.closeMenu;
             let index = openMenuTags.findIndex(item => {
                 return item.key === closeMenuKey
             })
             if (index>-1) {
                 openMenuTags.splice(index,1)
             }
+            console.log("redux openMenuTags:",openMenuTags)
             return { ...state, openMenuTags: openMenuTags }
         default:
             return state

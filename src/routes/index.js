@@ -10,6 +10,7 @@ import menus from "./menus"
 import { setMenus } from "../store/actions/menu";
 import { reduceMenuList } from "@/utils"
 import routes from "@/routes/routes"
+
 const mapDispatchToProps = (dispatch) => {
     return {
         setMenus: (list) => dispatch(setMenus(list)),
