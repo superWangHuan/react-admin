@@ -24,6 +24,11 @@ function renderMenu(item, path = "") {
 class SideMenu extends Component {
     render() {
         let { menus = [], openMenuKeys ,selectMenu } = this.props;
+        let openMenu = [ ]
+        if(selectMenu){
+            openMenu.push(selectMenu.key)
+        }
+        console.log(openMenu)
         return (
             <Sider style={{ height: "100vh", overflowY: "auto" }} theme="light">
                 <div className="logo">
@@ -33,6 +38,7 @@ class SideMenu extends Component {
                     theme="light"
                     mode="inline"
                     onOpenChange={this.onOpenChange}
+                    defaultSelectedKeys={ openMenu }
                 >
                     {menus.map((item => {
                         return renderMenu(item)

@@ -39,10 +39,11 @@ class Intercept extends Component {
         let hash = localtion.hash;
         let search = localtion.search;
         let pagePath = pathname + ( hash || search );
-        console.log("当前页路径:",pagePath)
+        console.log("当前页路径:",pagePath,pageKey,path)
         let openTag = { key:pageKey , title, path }
         if(!to) addOpenMenuTag(openTag)
-
+        //当前选择的菜单
+        setSelectMenu(openTag)
     }
     render() {
         const { components:Components,key,path,to } = this.props
