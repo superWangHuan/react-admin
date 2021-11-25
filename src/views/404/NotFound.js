@@ -1,23 +1,53 @@
-import React from 'react';
-import { Button, Row, Col } from 'antd';
+import React from "react";
+import { Result, Button } from "antd";
+import { connect } from "react-redux";
 
-const NotFound = props => {
-	const goback = () => {
-		props.history.push('/dashboard');
+
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+
+});
+
+function useErrorPage(props) {
+	const {
+		openMenus,
+		history,
+		filterOpenKeyFn,
+		status = "404",
+		errTitle = "404",
+		subTitle = "Sorry, the page you visited does not exist.",
+	} = props;
+
+	const back = async () => {
+		const url =
+			history.location.pathname +
+			(history.location.hash || history.location.search);
+		// 从顶部打开的路径，再去跳转
+		const menuList = openMenus.filter((i) => i.path !== url);
+		filterOpenKeyFn(url);
+		const next = menuList[menuList.length - 1];
+		history.replace(next.path);
 	};
+	return { status, errTitle, subTitle, back };
+}
+
+function ErrorPage(props) {
+	const { status, errTitle, subTitle} = useErrorPage(props);
 	return (
-		<Row gutter={24} className="wrap-404">
-			<Col offset={4} sm={10} className="img-box" xs={20} />
-			<Col offset={1} sm={10} className="content-error" xs={20}>
-				<h1>404</h1>
-				<p className="desc">抱歉，你访问的页面不存在</p>
-				<div>
-					<Button onClick={goback} type="primary">
-						返回首页
-					</Button>
-				</div>
-			</Col>
-		</Row>
+		<Result
+			status={status}
+			title={errTitle}
+			subTitle={subTitle}
+			extra={
+				<Button type="primary" >
+					Go Back
+				</Button>
+			}
+		/>
 	);
-};
-export default NotFound;
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ErrorPage);

@@ -1,17 +1,17 @@
 import loadable from "@loadable/component";
-import { Redirect } from "react-router-dom";
 import dynamicRoutesMap from "./dynamicRoutes";
+const NotFound = loadable(() => import("@/views/404/NotFound"));
 const Error = loadable(() => import("@/views/Error/Error"));
 const defaultRoutes = [
   {
     path: "/",
     key: "index",
     to: "/home/index",
-    components: Redirect,
   },
   {
     path: "/result/404",
-    components: Error,
+    title: "页面不存在",
+    components: NotFound,
   },
   {
     path: "/result/403",
@@ -29,10 +29,8 @@ const defaultRoutes = [
   },
   {
     path: "*",
-    title: "页面不存在",
     key: "404",
-    keepAlive: true,
-    components: Error,
+    to:"/result/404"
   },
 ];
 const list = dynamicRoutesMap.map((c) => ({ ...c, components: loadable(c.component) }));

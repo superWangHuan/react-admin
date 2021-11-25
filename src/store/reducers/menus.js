@@ -5,7 +5,7 @@ export default function menus(state = {}, action) {
     switch (action.type) {
         case SET_MENUS: //储存所有菜单信息
             return { ...state, menuList: action.menus }
-        case SET_OPEN_MENUS_KEYS: //设置所有打开的页面信息
+        case SET_OPEN_MENUS_KEYS: //设置展开菜单的项目
             return { ...state, openMenuKeys: action.openMenuKeys }
         case SET_SELECT_MENU: //设置当前打开页面信息
             return { ...state, selectMenu: action.selectMenu }

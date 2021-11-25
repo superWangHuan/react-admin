@@ -3,18 +3,19 @@ import { Menu, Layout } from "antd"
 import { withRouter, Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { setOpenMenus } from "@/store/actions/menu"
+import Icon from "@/components/Icon/Icon"
 const { Sider } = Layout;
-
 
 //菜单子选项渲染处理
 function renderMenu(item, path = "") {
-    if (!item.children) return <Menu.Item key={item.key}>
+    if (!item.children) return <Menu.Item key={item.key} icon={ <Icon  type={item.icon} size={60}/> }>
         <Link to={(path || "") + item.path}>{item.title}</Link>
     </Menu.Item>
     return (
         <Menu.SubMenu
             key={item.key}
             title={item.title}
+            icon={ <Icon  type={item.icon} size={60}/> }
         >
             {item.children.map((i) => renderMenu(i, path + item.path))}
         </Menu.SubMenu>
@@ -24,11 +25,10 @@ function renderMenu(item, path = "") {
 class SideMenu extends Component {
     render() {
         let { menus = [], openMenuKeys ,selectMenu } = this.props;
-        let openMenu = [ ]
+        let openMenu = []
         if(selectMenu){
             openMenu.push(selectMenu.key)
         }
-        console.log(openMenu)
         return (
             <Sider style={{ height: "100vh", overflowY: "auto" }} theme="light">
                 <div className="logo">
@@ -38,7 +38,8 @@ class SideMenu extends Component {
                     theme="light"
                     mode="inline"
                     onOpenChange={this.onOpenChange}
-                    defaultSelectedKeys={ openMenu }
+                    selectedKeys={ openMenu } //定位当前页面激活菜单
+                    openKeys={ openMenuKeys }
                 >
                     {menus.map((item => {
                         return renderMenu(item)
@@ -53,11 +54,11 @@ class SideMenu extends Component {
         }
     }
     onOpenChange = (keys) => {
-
+        this.props.setOpenMenus(keys)
     }
 }
 const mapStateToProps = (state) => ({
-    openMenuKeys: state.menus.openMenuKeys,
+    openMenuKeys: state.menus.openMenuKeys, //展开的menu项
     selectMenu: state.menus.selectMenu
 })
 const mapDispatchTopProps = (dispatch) => ({
