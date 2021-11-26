@@ -1,9 +1,9 @@
 import { getMenuParentKey } from './utils';
 import menus from "./routes/menus";
 describe('true is truthy and false is falsy', () => {
-    test('true is truthy', () => {
-        let res = getMenuParentKey(menus,"todo-index")
-        expect(res).toBe("s");
+    test('测试getMenuParentKey函数', () => {
+        let res = getMenuParentKey(menus,"key","home-index")
+        expect(res).toEqual([{icon: "icon-baocun",title: "home",},{icon:"icon-daka",title:"家"}]);
     });
 
 });

@@ -1,4 +1,9 @@
 const dynamicRoutesMap = [
+{
+    path:'/test/test',
+    component: ()=>import("@/views/Test/Test"),
+},
+
     {
         path:'/dashboard',
         component: function(){

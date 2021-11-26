@@ -7,7 +7,8 @@ const menus = [
         menu_id: 1,
         parentKey: "",
         path: "/dashboard",
-        title: "首页",
+        title: "Dashboard",
+        visible:true,
     },
     {
         icon: "icon-baocun",
@@ -17,6 +18,7 @@ const menus = [
         parentKey: "",
         path: "/home",
         title: "home",
+        visible:true,
         children:[
             {
                 icon: "icon-daka",
@@ -25,7 +27,8 @@ const menus = [
                 menu_id: 3,
                 parentKey: "home",
                 path: "/index",
-                title: "home",
+                title: "家",
+                visible:true
             },
             {
                 icon: "icon-dayin",
@@ -35,6 +38,7 @@ const menus = [
                 parentKey: "home",
                 path: "/demo",
                 title: "demo",
+                visible:true
             }
         ]
     },
@@ -46,6 +50,7 @@ const menus = [
         parentKey: "",
         path: "/todo",
         title: "todo",
+        visible:true,
         children:[
             {
                 icon: "icon-daichuli",
@@ -55,6 +60,7 @@ const menus = [
                 parentKey: "todo",
                 path: "/index",
                 title: "index",
+                visible:true
             },
             {
                 icon: "icon-ditu",
@@ -64,6 +70,7 @@ const menus = [
                 parentKey: "todo",
                 path: "/list",
                 title: "list",
+                visible:true
             }
         ]
     },
@@ -73,8 +80,9 @@ const menus = [
         key: "userCenter",
         menu_id: 8,
         parentKey: "",
-        path: "/userCenter",
-        title: "userCenter",
+        path: "/user",
+        title: "用户中心",
+        visible:false
     },
 ]
 

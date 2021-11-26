@@ -15,26 +15,33 @@ export function reduceMenuList(list, path = "") {
 }
 
 //找父级
-export function getMenuParentKey(list,key){
+export function getMenuParentKey(list, key, val) {
+    if (!list) return []
     let data = JSON.parse(JSON.stringify(list))
-    let nodes = [];
     let stack = []
-    stack.push(data)
-    if(data && Array.isArray(data)){
-        while (stack.length!==0){
+    stack.push(...data)
+    if (Array.isArray(data)) {
+        while (stack.length !== 0) {
             let item = stack.pop();
-            if(item !== data){ //防止添加原本数据
-                nodes.push(item)
-            }
-            let children = item.children ? item.children : item;
-            if(Array.isArray(children)){
-                children.forEach((info, i, arr) => {
-                    info.parentInfo = item;
+            let children = item?.children;
+            if (Array.isArray(children)) {
+                for (let i = 0; i < children.length; i++) {
+                    let res = []
+                    let info = children[i]
+                    info.parent = item;
+                    if (info[key] === val){
+                        return (function find(c) {
+                            res.unshift({icon:c.icon,title:c.title,key:c.key})
+                            if (c.parent) return find(c.parent);
+                            return res
+                        })(info)
+                    }
                     stack.push(info)
-                })
+                }
+            }else if(item[key]===val){
+                return [{icon:item.icon,title:item.title,key:item.key}]
             }
         }
     }
-    console.log(nodes)
-    return "s"
+    return []
 }

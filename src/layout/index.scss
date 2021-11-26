@@ -21,3 +21,10 @@
 .col{
     flex-direction: column;
 }
+.Breadcrumb{
+    height:30px;
+    @extend .flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding-left:10px;
+}

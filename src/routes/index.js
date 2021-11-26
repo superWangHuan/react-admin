@@ -55,7 +55,7 @@ function useRouter(setMenus) {
                     exact={ true }
                     path={ path }
                     render={(props) => {
-                        return <Intercept pageKey = { key } { ...item } { ...props } />
+                        return <Intercept routes={ routes } pageKey = { key } { ...item } { ...props } />
                     }}
                 />
             )

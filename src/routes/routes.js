@@ -6,7 +6,7 @@ const defaultRoutes = [
   {
     path: "/",
     key: "index",
-    to: "/home/index",
+    to: "/dashboard",
   },
   {
     path: "/result/404",

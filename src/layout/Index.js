@@ -16,7 +16,7 @@ class Index extends Component{
         this.state = {}
     }
     render(){
-        let { menus } = this.props
+        let { menus } = this.props;
         return (
             <Layout>
                 <SideMenu menus={ menus }/>
