@@ -2,7 +2,6 @@ import axios from "axios";
 
 
 const severice = axios.create({
-    // baseURL:"http://127.0.0.1:3456/",
     timeout:3 * 1000,
 })
 
