@@ -5,7 +5,7 @@ class TopHeader extends Component{
     render(){
         return (
             <div>
-                <Header></Header>
+                <Header/>
             </div>
         )
     }

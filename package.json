@@ -50,6 +50,7 @@
     "customize-cra": "^1.0.0",
     "http-proxy-middleware": "^2.0.1",
     "inquirer": "^8.2.0",
+    "mockjs": "^1.1.0",
     "node-sass": "^6.0.1",
     "plop": "^2.7.6",
     "react-app-rewired": "^2.1.8",

@@ -24,14 +24,21 @@ function renderMenu(item, path = "") {
 }
 
 class SideMenu extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            collapsed:false
+        }
+    }
     render() {
+        let { collapsed } = this.state;
         let { menus = [], openMenuKeys ,selectMenu } = this.props;
         let openMenu = []
         if(selectMenu){
             openMenu.push(selectMenu.key)
         }
         return (
-            <Sider style={{ height: "100vh", overflowY: "auto" }} theme="light">
+            <Sider  collapsible collapsed={collapsed} onCollapse={this.onCollapse} style={{ height: "100vh", overflowY: "auto" }} theme="light">
                 <div className="logo">
                     <h1>LOGO</h1>
                 </div>
@@ -56,6 +63,13 @@ class SideMenu extends Component {
     }
     onOpenChange = (keys) => {
         this.props.setOpenMenus(keys)
+    }
+    onCollapse=()=>{
+        this.setState(state=>{
+            return {
+                collapsed:!state.collapsed
+            }
+        })
     }
 }
 const mapStateToProps = (state) => ({

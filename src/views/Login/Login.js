@@ -13,7 +13,7 @@ const mapStateToProps = (state /*, ownProps*/) => {
         msg:"这是mapStateToProps中的数据"
     };
 };
-  
+
 const mapDispatchToProps = { handleLogin };
 
 
@@ -30,10 +30,9 @@ class Login extends Component {
             loading:state||false
         })
     }
-    onFinish = (e) => { 
-        let data = e;
-        this.props.handleLogin(data,this.props.history) //登录
-        
+    onFinish = (e) => {
+        this.props.handleLogin(e,this.props.history) //登录
+
     }
     onFinishFailed = (e) => {
         console.log('err',e)
@@ -58,7 +57,7 @@ class Login extends Component {
                             autoComplete="off"
                             size={12}
                         >
-                            <Form.Item 
+                            <Form.Item
                                 name="username"
                                 rules={[{ required: true, message: 'Please input your username!' }]}>
                                 <div className="item">

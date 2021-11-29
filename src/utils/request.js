@@ -1,31 +1,38 @@
 import axios from "axios";
-
+import { message } from "antd"
 
 const severice = axios.create({
-    timeout:3 * 1000,
+    timeout: 3 * 1000,
 })
 
-severice.interceptors.request.use(config=>{
-    console.log(config)
+severice.interceptors.request.use(config => {
     let token = localStorage.getItem("token")
-    if (token){
+    if (token) {
         config.headers["Authorization"] = token || "";
     }
     config.headers['Content-Type'] = 'application/json'
     return config
-},err=>{
+}, err => {
     Promise.reject(err)
 })
 
 
-severice.interceptors.response.use(response=>{
-    const code = response.status
-    if (code < 200 || code > 300) {
-      return Promise.reject('error')
+severice.interceptors.response.use(response => {
+    const status = response.status
+    if (status < 200 || status > 300) {
+        return Promise.reject('error')
     } else {
-      return response.data
+        let code = response.data?.code;
+        if(code===1000){
+            return response.data
+        }else{
+            let msg = response.data?.msg
+            message.error(msg||"")
+            return Promise.reject(response.data)
+        }
+
     }
-},err=>{
+}, err => {
     Promise.reject(err)
 })
 

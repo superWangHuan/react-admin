@@ -1,4 +1,4 @@
-import React,{ Component } from "react"
+import { Component } from "react"
 import { Layout } from "antd"
 import ContentRouter from "@/routes"
 

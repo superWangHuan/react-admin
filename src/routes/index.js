@@ -6,7 +6,6 @@ import { Route } from "react-router-dom"
 import { connect } from "react-redux"
 import { CacheRoute, CacheSwitch } from "react-router-cache-route";
 import Intercept from "./intercept";
-import menus from "./menus"
 import { setMenus } from "../store/actions/menu";
 import { reduceMenuList } from "@/utils"
 import routes from "@/routes/routes"
@@ -16,16 +15,19 @@ const mapDispatchToProps = (dispatch) => {
         setMenus: (list) => dispatch(setMenus(list)),
     }
 }
+const mapStateToProps = state => ({
+    menus: state.menus.menuList
+})
 
-function useRouter(setMenus) {
+function useRouter(menus) {
     const [routerBody, setRoute] = useState(null);
     const [newRoutes, setNewRoutes] = useState([])
     useEffect(() => {
-        if (typeof setMenus === "function") {
+        if(Object.prototype.toString.call(menus)==="[object Array]"){
             //将menus children打平
             let list = reduceMenuList(menus);
             // 把请求的数据 和 本地pages页面暴露出的路由列表合并
-            let routelist = routes.map((router) => {
+            let routerList = routes.map((router) => {
                 let find = list.find(
                     (i) => (i.parentPath || "") + i.path === router.path
                 );
@@ -36,14 +38,12 @@ function useRouter(setMenus) {
                 }
                 return router;
             });
-            console.log('newRoutes', routelist)
+            // console.log('newRoutes', routelist)
             if (list && list.length) {
-                setNewRoutes(routelist)
-                setMenus(menus)
+                setNewRoutes(routerList)
             }
         }
-
-    }, [setMenus])
+    }, [menus])
     // 监听 本地路由列表 和 合并后的用户菜单列表 同时存在长度大于1时 渲染路由组件
     useEffect(() => {
         const dom = newRoutes.map(item => {
@@ -65,10 +65,11 @@ function useRouter(setMenus) {
     return { routerBody }
 }
 
-const Router = ({ setMenus }) => {
-    const { routerBody } = useRouter(setMenus);
-    return <CacheSwitch>{routerBody}</CacheSwitch>;
+const Router = ({ menus }) => {
+    const { routerBody } = useRouter(menus);
+    useEffect(()=>{  },[menus])
+    return <CacheSwitch>{ routerBody }</CacheSwitch>;
 };
 
 
-export default connect(null, mapDispatchToProps)(Router)
+export default connect(mapStateToProps, mapDispatchToProps)(Router)

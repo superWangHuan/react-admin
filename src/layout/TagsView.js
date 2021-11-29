@@ -32,20 +32,21 @@ class TagsView extends Component{
         )
     }
     //关闭tag
-    closeTag=(item)=>{
-        const { openMenuTags=[],history } = this.props;
+    closeTag=(e)=>{
+        const { openMenuTags=[],history,selectMenu,delCloseMenuTag } = this.props;
         if(openMenuTags.length > 1){
-            let key = item.key;
+            let key = e.key;
             let index = openMenuTags.findIndex(item => {
-                return item.key === this.props.selectMenu?.key
+                return item.key === key
             })
-            this.props.delCloseMenuTag(key)
-            if(index === 0){
-                history.replace(openMenuTags[1].path)
-            }else if(index>0){
-                history.replace(openMenuTags[index - 1].path)
+            delCloseMenuTag(key)
+            if(selectMenu.key===openMenuTags[index].key){
+                if(index === 0){
+                    history.replace(openMenuTags[1].path)
+                }else if(index>0){
+                    history.replace(openMenuTags[index - 1].path)
+                }
             }
-
         }
     }
 }

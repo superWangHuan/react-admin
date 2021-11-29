@@ -1,7 +1,7 @@
 //可以在接口中获取路由数据
 const menus = [
     {
-        icon: "icon-aixin",
+        icon: "icon-RectangleCopy215",
         keepAlive: true,
         key: "dashboard",
         menu_id: 1,

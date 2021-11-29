@@ -1,7 +1,8 @@
 import { SET_MENUS, SET_OPEN_MENUS_KEYS, SET_SELECT_MENU, ADD_OPEN_MENUS_TAG, DEL_CLOSE_MENUS_TAG,SET_BREADCRUMB } from "../constants";
 const defaultState={
     breadcrumb:[],
-    openMenuTags:[]
+    openMenuTags:[],
+    menuList:[]
 }
 export default function menus(state = defaultState, action) {
     let copyState = JSON.parse(JSON.stringify(state))
