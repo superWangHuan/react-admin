@@ -53,6 +53,7 @@
     "mockjs": "^1.1.0",
     "node-sass": "^6.0.1",
     "plop": "^2.7.6",
+    "prop-types": "^15.7.2",
     "react-app-rewired": "^2.1.8",
     "sass-loader": "^12.1.0"
   }

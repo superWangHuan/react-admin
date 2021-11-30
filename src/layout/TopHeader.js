@@ -5,7 +5,7 @@ class TopHeader extends Component{
     render(){
         return (
             <div>
-                <Header/>
+                <Header style={{ position: 'fixed', zIndex: 10, width: '100%' }}/>
             </div>
         )
     }

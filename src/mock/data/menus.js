@@ -11,7 +11,7 @@ const menus = [
         visible:true,
     },
     {
-        icon: "icon-baocun",
+        icon: "icon-RectangleCopy54",
         keepAlive: true,
         key: "home",
         menu_id: 2,
@@ -21,7 +21,7 @@ const menus = [
         visible:true,
         children:[
             {
-                icon: "icon-daka",
+                icon: "icon-RectangleCopy55",
                 keepAlive: true,
                 key: "home-index",
                 menu_id: 3,
@@ -31,7 +31,7 @@ const menus = [
                 visible:true
             },
             {
-                icon: "icon-dayin",
+                icon: "icon-RectangleCopy56",
                 keepAlive: true,
                 key: "demo",
                 menu_id: 4,
@@ -43,7 +43,7 @@ const menus = [
         ]
     },
     {
-        icon: "icon-biaoqian",
+        icon: "icon-RectangleCopy56",
         keepAlive: true,
         key: "todo",
         menu_id: 5,
@@ -53,7 +53,7 @@ const menus = [
         visible:true,
         children:[
             {
-                icon: "icon-daichuli",
+                icon: "icon-RectangleCopy57",
                 keepAlive: true,
                 key: "todo-index",
                 menu_id: 6,
@@ -63,7 +63,7 @@ const menus = [
                 visible:true
             },
             {
-                icon: "icon-ditu",
+                icon: "icon-RectangleCopy58",
                 keepAlive: true,
                 key: "list",
                 menu_id: 7,
@@ -75,7 +75,7 @@ const menus = [
         ]
     },
     {
-        icon: "icon-dianzan",
+        icon: "icon-RectangleCopy59",
         keepAlive: true,
         key: "userCenter",
         menu_id: 8,

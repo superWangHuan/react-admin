@@ -38,7 +38,12 @@ class SideMenu extends Component {
             openMenu.push(selectMenu.key)
         }
         return (
-            <Sider  collapsible collapsed={collapsed} onCollapse={this.onCollapse} style={{ height: "100vh", overflowY: "auto" }} theme="light">
+            <Sider breakpoint={"md"}
+                   collapsible
+                   collapsed={collapsed}
+                   onCollapse={this.onCollapse}
+                   style={{ height: "100%", overflowY: "auto",msOverflowY:"scroll" }}
+                   theme="light">
                 <div className="logo">
                     <h1>LOGO</h1>
                 </div>
@@ -46,7 +51,7 @@ class SideMenu extends Component {
                     theme="light"
                     mode="inline"
                     onOpenChange={this.onOpenChange}
-                    selectedKeys={ openMenu } //定位当前页面激活菜单
+                    selectedKeys ={ openMenu } //定位当前页面激活菜单
                     openKeys={ openMenuKeys }
                 >
                     {menus.map((item => {

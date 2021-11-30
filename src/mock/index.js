@@ -1,15 +1,13 @@
 
 import Mock from 'mockjs';
-import menus from "@/routes/menus"
+import menus from "./data/menus"
 import handCode from "./utils/handCode"
-
 Mock.setup({ timeout: "500" });
 Mock.mock('/mock/menu',"get",()=>handCode.success(menus));
-Mock.mock("mock/user","post",function (r){
-    console.log('mock/user',r)
+Mock.mock("/mock/user","post",function (r){
     let params = JSON.parse(r.body)
     let { token } = params;
-    if(token==="admin-tokne"){
+    if(token==="admin-token"){
         return handCode.success({
             avatar: "https://cdn-mini.sangupig.top/test/images/1628668576101.jpg",
             createTime: 1534986716000,
@@ -37,7 +35,7 @@ Mock.mock("mock/user","post",function (r){
     }
 
 })
-Mock.mock("mock/login","post",function (r){
+Mock.mock("/mock/login","post",function (r){
     let params = JSON.parse(r.body)
     let { username,password,code } = params;
     if(username==="admin" && password === "123456" && code){
@@ -78,3 +76,20 @@ Mock.mock("mock/login","post",function (r){
 
 })
 
+Mock.mock("/mock/ips","get",function(r){
+    let data  = Mock.mock({
+        "deal|50":[{
+            "time|+1": '@now(yyyy-MM-dd)',
+            "value|10-50": 1,
+        }],
+        "ips|50":[{
+            "time": '@DATETIME("yyyy-MM-dd")',
+            "value|10-50": 1
+        }],
+        "today": {
+            "deal|100-200": 1,
+            "ips|0-50": 1
+        }
+    })
+    return handCode.success(data)
+})

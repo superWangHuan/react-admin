@@ -1,6 +1,5 @@
 import axios from "axios";
 import { message } from "antd"
-
 const severice = axios.create({
     timeout: 3 * 1000,
 })

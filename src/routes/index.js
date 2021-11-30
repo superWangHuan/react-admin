@@ -23,7 +23,7 @@ function useRouter(menus) {
     const [routerBody, setRoute] = useState(null);
     const [newRoutes, setNewRoutes] = useState([])
     useEffect(() => {
-        if(Object.prototype.toString.call(menus)==="[object Array]"){
+        if(Object.prototype.toString.call(menus)==="[object Array]"&&menus.length>0){
             //将menus children打平
             let list = reduceMenuList(menus);
             // 把请求的数据 和 本地pages页面暴露出的路由列表合并
@@ -38,7 +38,6 @@ function useRouter(menus) {
                 }
                 return router;
             });
-            // console.log('newRoutes', routelist)
             if (list && list.length) {
                 setNewRoutes(routerList)
             }
@@ -47,6 +46,7 @@ function useRouter(menus) {
     // 监听 本地路由列表 和 合并后的用户菜单列表 同时存在长度大于1时 渲染路由组件
     useEffect(() => {
         const dom = newRoutes.map(item => {
+
             let { key, path } = item;
             let RouterRender = item.keepAlive ? CacheRoute : Route;
             return (
