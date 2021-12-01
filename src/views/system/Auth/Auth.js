@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
-export default function Test(props){
+export default function Auth(props){
     useEffect(()=>{
 
     })
     return (
-        <div></div>
+        <div>权限管理</div>
     )
 }

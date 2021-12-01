@@ -1,4 +1,8 @@
 {
     path:'/{{routerPath}}',
+    {{#if filePath}}
+    component: ()=>import("@/views/{{filePath}}/{{name}}/{{name}}"),
+    {{else}}
     component: ()=>import("@/views/{{name}}/{{name}}"),
+    {{/if}}
 },

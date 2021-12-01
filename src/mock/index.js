@@ -2,6 +2,8 @@
 import Mock from 'mockjs';
 import menus from "./data/menus"
 import handCode from "./utils/handCode"
+
+
 Mock.setup({ timeout: "500" });
 Mock.mock('/mock/menu',"get",()=>handCode.success(menus));
 Mock.mock("/mock/user","post",function (r){
@@ -90,6 +92,40 @@ Mock.mock("/mock/ips","get",function(r){
             "deal|100-200": 1,
             "ips|0-50": 1
         }
+    })
+    return handCode.success(data)
+})
+//所有用户
+Mock.mock("/mock/system/allUser","get",function(r){
+    let data = Mock.mock({
+        "data|15":[
+            {
+                avatar: "@image",
+                createTime: "@now()",
+                dept: {
+                    id: 1,
+                    name: "总部",
+                },
+                deptId: null,
+                email: /^(\w){6,8}@136\.com$/,
+                "enabled": "@boolean",
+                "id|+1": 1,
+                job: {
+                    "id|+1": 100,
+                    "name|+1": /^admin-[\w]{3,5}/
+                },
+                phone: /^1[0-9]{10}$/ ,
+                roles: {
+                    dataScope: "全部",
+                    id: 1,
+                    level: 1,
+                    name: "超级管理员",
+                },
+                "sex": "@boolean()",
+                username: "@name()",
+                password:/^1[0-9]{6}$/
+            }
+        ]
     })
     return handCode.success(data)
 })

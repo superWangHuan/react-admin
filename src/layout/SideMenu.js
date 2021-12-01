@@ -9,14 +9,14 @@ const { Sider } = Layout;
 //菜单子选项渲染处理
 function renderMenu(item, path = "") {
     if(!item.visible) return null;
-    if (!item.children) return <Menu.Item key={item.key} icon={ <Icon type={item.icon} style={{fontSize:"24px"}}/> }>
+    if (!item.children) return <Menu.Item key={item.key} icon={ <Icon type={item.icon} style={{fontSize:"20px"}}/> }>
         <Link to={(path || "") + item.path}>{item.title}</Link>
     </Menu.Item>
     return (
         <Menu.SubMenu
             key={item.key}
             title={item.title}
-            icon={ <Icon type={item.icon} style={{fontSize:"24px"}}/> }
+            icon={ <Icon type={item.icon} style={{fontSize:"20px"}}/> }
         >
             {item.children.map((i) => renderMenu(i, path + item.path))}
         </Menu.SubMenu>

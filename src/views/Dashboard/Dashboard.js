@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react"
+import { useEffect } from "react"
 import { connect } from "react-redux"
 import { getIps } from "@/api/mointer"
 
@@ -12,7 +12,6 @@ const mapStateToProps = (state /*, ownProps*/) => {
 
 
 function Dashboard(){
-
     useEffect(()=>{
         getIps().then(res=>{
             console.log(res)
