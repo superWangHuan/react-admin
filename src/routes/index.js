@@ -13,6 +13,9 @@ import Intercept from "./intercept";
 import { setMenus } from "@/store/actions/menu";
 import { reduceMenuList } from "@/utils"
 import routes from "@/routes/routes"
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import './index.scss';
+
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -71,8 +74,15 @@ function useRouter(menus) {
 
 const Router = ({ menus }) => {
     const { routerBody } = useRouter(menus);
+    const location = window.location
     useEffect(()=>{  },[menus])
-    return <CacheSwitch>{ routerBody }</CacheSwitch>;
+    return (
+        <TransitionGroup>
+            <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
+                <CacheSwitch>{ routerBody }</CacheSwitch>
+            </CSSTransition>
+        </TransitionGroup>
+    );
 };
 
 

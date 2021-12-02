@@ -35,14 +35,14 @@ function useErrorPage(props) {
 }
 
 function ErrorPage(props) {
-  const { status, errTitle, subTitle} = useErrorPage(props);
+  const { status, errTitle, subTitle,back } = useErrorPage(props);
   return (
     <Result
       status={status}
       title={errTitle}
       subTitle={subTitle}
       extra={
-        <Button type="primary" >
+        <Button type="primary" onClick={ back }>
           Go Back
         </Button>
       }
