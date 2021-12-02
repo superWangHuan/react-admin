@@ -1,12 +1,16 @@
 /***
  * 主页路由权限管理
+ * useHistory
+ useLocation
+ useParams
+ useRouteMatch
  */
 import { useState, useEffect } from "react"
 import { Route } from "react-router-dom"
 import { connect } from "react-redux"
 import { CacheRoute, CacheSwitch } from "react-router-cache-route";
 import Intercept from "./intercept";
-import { setMenus } from "../store/actions/menu";
+import { setMenus } from "@/store/actions/menu";
 import { reduceMenuList } from "@/utils"
 import routes from "@/routes/routes"
 

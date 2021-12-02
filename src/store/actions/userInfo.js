@@ -34,3 +34,8 @@ export const getUser = (data) => dispatch => {
         dispatch(setUserInfo(res.data))
     })
 }
+//登出
+export const loginOut=()=>dispatch=>{
+    dispatch(setUserInfo({}))
+    dispatch(setToken(null))
+}

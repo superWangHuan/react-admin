@@ -3,7 +3,6 @@ import { connect } from "react-redux"
 import { getIps } from "@/api/mointer"
 
 
-
 const mapStateToProps = (state /*, ownProps*/) => {
     return {
       userInfo: state.user.userInfo
@@ -16,6 +15,9 @@ function Dashboard(){
         getIps().then(res=>{
             console.log(res)
         })
+        return function (){
+
+        }
     },[])
     return (
         <div></div>

@@ -7,3 +7,9 @@ export function getAllUser(){
         method:"GET",
     })
 }
+export function getRoles(){
+    return request({
+        url:"/mock/system/roles",
+        method:"get"
+    })
+}

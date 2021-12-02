@@ -42,14 +42,17 @@ const Index = ({menus, token, setMenus, getUserInfo}) => {
                 timer = null
             },100)
         })
+        return function (){
+
+        }
     }, [token, setMenus, getUserInfo])
     if (loading) return (
         <div className="loading-page"><Spin size="large" wrapperClassName="loading-page" tip="Loading..."/></div>
     )
     return (
-        <Layout style={{ height: height }}>
+        <Layout style={{ height: height }} theme={"light"}>
             <SideMenu menus={menus}/>
-            <Layout>
+            <Layout theme={"light"}>
                 <TopHeader>Header</TopHeader>
                 <MainContent routes={routes}/>
             </Layout>

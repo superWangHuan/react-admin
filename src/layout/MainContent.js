@@ -8,7 +8,7 @@ const { Content } = Layout;
 class SideMenu extends Component{
     render(){
         return (
-            <Content style={{padding:"10px", marginTop: 64,height:"100%",overflowY:"scroll"}}>
+            <Content style={{padding:"10px", height:"100%",overflowY:"scroll"}}>
                 <TagsView/>
                 <ContentRouter/>
             </Content>

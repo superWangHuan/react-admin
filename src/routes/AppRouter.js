@@ -10,7 +10,7 @@ const mapStateToProps = (state)=>({
 })
 
 function AppRouter({token}) {
-    if (!token) {
+    if (!token || token==="null" || token==="undefined") {
         return <Login/>
     }
     return (

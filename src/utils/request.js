@@ -1,5 +1,6 @@
 import axios from "axios";
 import { message } from "antd"
+const CancelToken = axios.CancelToken;
 const severice = axios.create({
     timeout: 3 * 1000,
 })
@@ -10,6 +11,9 @@ severice.interceptors.request.use(config => {
         config.headers["Authorization"] = token || "";
     }
     config.headers['Content-Type'] = 'application/json'
+    config.cancelToken = new CancelToken(c => {
+        window.AXIOS_REQUEST_CANCEL = c
+    })
     return config
 }, err => {
     Promise.reject(err)

@@ -1,21 +1,53 @@
-import { Layout,Avatar } from "antd"
-import {connect} from "react-redux";
-
+import {Layout, Avatar, PageHeader, Menu, Dropdown} from "antd"
+import {connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import {SwapOutlined} from "@ant-design/icons";
+import {loginOut} from "../store/actions/userInfo";
 const { Header } = Layout
 const mapStateToProps = state=>({
-    user:state.user.userInfo
+    user:state.user.userInfo,
+    selectMenu: state.menus.selectMenu,
 })
-function TopHeader({user}){
-    return (
-        <div>
-            <Header style={{ position: 'fixed', zIndex: 10, width: '100%'}}>
-                <div style={{position:"relative",zIndex:11}}>
-                    <Avatar size={45} src={ user.avatar } />
-                </div>
+const mapDispatchToProps = dispatch=>({
+    loginOut:()=>dispatch(loginOut())
+})
 
-            </Header>
-        </div>
+const UserMenu = ( { loginOut } )=>(
+    <Menu onClick={ ({key})=> loginOut(key) }>
+        <Menu.Item key="user-center">
+            个人中心
+        </Menu.Item>
+        <Menu.Item key="cut-user" icon={<SwapOutlined />}>
+            切换用户
+        </Menu.Item>
+    </Menu>
+)
+
+function TopHeader({user,selectMenu= {},history,loginOut}){
+    const handUserMenu = (key)=>{
+        if(key==="user-center"){
+            history.push("/user")
+        }else if(key==="cut-user"){
+            loginOut()
+        }
+    }
+    return (
+        <Header style={{ width: '100%',padding:"0 30px",background: "#FFFFFF"}}  className="site-layout-header">
+            <div>
+                <PageHeader
+                    style={{padding:"0"}}
+                    className="site-page-header"
+                    onBack={() => window.history.back()}
+                    title={ selectMenu.title }
+                />
+            </div>
+            <Dropdown overlay={ <UserMenu loginOut={ handUserMenu }/> }>
+                <Avatar size={45} src={ user.avatar } className={"avatar"} />
+            </Dropdown>
+
+
+        </Header>
     )
 }
 
-export default connect(mapStateToProps)(TopHeader)
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(TopHeader))

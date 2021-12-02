@@ -7,7 +7,7 @@ const menus = [
         menu_id: 1,
         parentKey: "",
         path: "/dashboard",
-        title: "Dashboard",
+        title: "首页",
         visible:true,
         order:1,
     },
