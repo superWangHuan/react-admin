@@ -78,7 +78,7 @@ const Router = ({ menus }) => {
     useEffect(()=>{  },[menus])
     return (
         <TransitionGroup>
-            <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
+            <CSSTransition key={ location.pathname } unmountOnExit classNames="fade" timeout={300}>
                 <CacheSwitch>{ routerBody }</CacheSwitch>
             </CSSTransition>
         </TransitionGroup>
