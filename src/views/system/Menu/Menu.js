@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {Table, Button} from 'antd';
 import {connect} from "react-redux";
 import Icon from "@/components/Icon/Icon";
-import {getMenu} from "@/api/menus";
+import {getAllMenu} from "@/api/menus";
 
 
 const {Column} = Table;
@@ -28,7 +28,7 @@ function Menu() {
     };
     useEffect(() => {
         let ignore = false;
-        getMenu().then(res => {
+        getAllMenu().then(res => {
             if(!ignore){
                 setData(res.data)
                 setLoading(false)
@@ -37,7 +37,7 @@ function Menu() {
         return function (){
             ignore = true;
         }
-    }, [data])
+    }, [])
     return (
         <>
             <Table
@@ -59,7 +59,7 @@ function Menu() {
                 <Column align={"center"} title={"是否缓存"} key={"menu_id"} dataIndex={"keepAlive"}
                         render={keepAlive => (<span style={{fontSize: "14px"}}>{keepAlive ? "缓存" : "不缓存"}</span>)}
                 />
-                <Column align={"center"} title={"菜单排序"} key={"menu_id"} dataIndex={"order"}/>
+                <Column align={"center"} title={"菜单排序"} key={"menu_id"} dataIndex={"weight"}/>
                 <Column align={"center"} title={"操作"} key={"menu_id"} render={col => (<>
                     <Button type="primary" style={{marginRight: "5px", fontSize: "12px"}} size={"small"}>编辑</Button>
                     <Button type="danger" style={{marginRight: "5px", fontSize: "12px"}} size={"small"}>删除</Button>

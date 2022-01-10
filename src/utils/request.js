@@ -1,5 +1,7 @@
 import axios from "axios";
 import { message } from "antd"
+import store from "../store";
+import {setToken, setUserInfo} from "../store/actions/userInfo";
 const CancelToken = axios.CancelToken;
 const severice = axios.create({
     timeout: 3 * 1000,
@@ -22,18 +24,27 @@ severice.interceptors.request.use(config => {
 
 severice.interceptors.response.use(response => {
     const status = response.status
+    let msg = ""
     if (status < 200 || status > 300) {
         return Promise.reject('error')
     } else {
         let code = response.data?.code;
-        if(code===1000){
-            return response.data
-        }else{
-            let msg = response.data?.msg
-            message.error(msg||"")
-            return Promise.reject(response.data)
-        }
 
+        switch (code){
+            case 200:
+                return response.data
+            case 401:
+                //账号被禁用
+                msg = response.data?.msg
+                message.error(msg||"")
+                store.dispatch(setUserInfo({}))
+                store.dispatch(setToken(null))
+                return Promise.reject(response.data)
+            default:
+                msg = response.data?.msg
+                message.error(msg||"")
+                return Promise.reject(response.data)
+        }
     }
 }, err => {
     Promise.reject(err)

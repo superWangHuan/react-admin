@@ -3,9 +3,9 @@
  *
  */
 const codes = {
-    success:1000,
-    auth:2000,
-    error:3000,
+    success:200,
+    auth:401,
+    error:400,
 }
 
 const handCode = {

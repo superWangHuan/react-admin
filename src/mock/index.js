@@ -25,7 +25,7 @@ Mock.mock("/mock/user", "post", function (r) {
                 id: 1,
                 name: "总部",
             },
-            deptId: null,
+            deptId: 1,
             email: "123456@163.com",
             enabled: true,
             id: 1,

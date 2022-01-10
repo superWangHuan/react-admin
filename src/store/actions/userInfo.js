@@ -19,20 +19,24 @@ export function setUserInfo(info) {
 //登录
 export const handleLogin = (data) => dispatch => {
     login(data).then(res => {
-        console.log(res)
         let data = res?.data
         dispatch(setToken(data.token||''))
-        dispatch(setUserInfo(data.user))
+        dispatch(setUserInfo(data.userInfo))
         message.success("登录成功！")
     })
 }
 
 //getUserInfo
-export const getUser = (data) => dispatch => {
-    console.log("getUser")
-    getUserInfo(data).then(res => {
-        dispatch(setUserInfo(res.data))
+export const getUser = () => dispatch => {
+    return new Promise((resolve, reject)=>{
+        getUserInfo().then(res => {
+            dispatch(setUserInfo(res.data?.userInfo))
+            resolve(res)
+        }).catch(e=>{
+            reject(e)
+        })
     })
+
 }
 //登出
 export const loginOut=()=>dispatch=>{

@@ -1,6 +1,6 @@
 import { TOKEN, USER_INFO } from "../constants/index"
 
-let defaultUser = { token: localStorage.getItem("token"), userInfo: null }
+let defaultUser = { token: localStorage.getItem("token"), userInfo: {} }
 export function user(state = defaultUser, action) {
     let type = action.type;
     let copyState = Object.assign({}, state)

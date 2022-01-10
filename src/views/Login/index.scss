@@ -9,7 +9,7 @@
 }
 .input{
     .ant-input{
-        font-size: 14px !important; 
+        font-size: 14px !important;
         font-weight: bold;
         color: #eee;
         &::placeholder {
@@ -54,21 +54,22 @@ $p:30px;
     z-index: 1;
     position: relative;
     box-shadow: 0 5px 10px 5px rgba(110, 110, 110, 0.1);
-    &::before{
-        content: "";
-        position: absolute;
-        top: -$p/2;
-        left: -$p/2;
-        width:$loginLW + $loginRW + $p;
-        height:$loginHeight + $p;
-        background: url(../../assets/images/bg1.jpg) no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-        background-position: center;
-        filter: blur(8px);
-        z-index: -1;
-        padding:$p / 2;
-    }
+    backdrop-filter: blur(20px);
+    //&::before{
+    //    content: "";
+    //    position: absolute;
+    //    top: -$p/2;
+    //    left: -$p/2;
+    //    width:$loginLW + $loginRW + $p;
+    //    height:$loginHeight + $p;
+    //    background: url(../../assets/images/bg1.jpg) no-repeat;
+    //    background-attachment: fixed;
+    //    background-size: cover;
+    //    background-position: center;
+    //    filter: blur(8px);
+    //    z-index: -1;
+    //    padding:$p / 2;
+    //}
     .avatar-box{
         @extend .flex;
         width:$loginLW;
@@ -87,7 +88,7 @@ $p:30px;
             border-radius: 100%;
             border:3px solid rgba(218, 218, 218, 0.6);
         }
-        
+
     }
     .login-form{
         width:$loginRW;
@@ -128,7 +129,7 @@ $p:30px;
             border-radius: 7px;
             background-color: rgba(43, 43, 43, 0.4);
             color:#ffffff !important;
-            font-weight: bold !important;    
+            font-weight: bold !important;
         }
     }
 }

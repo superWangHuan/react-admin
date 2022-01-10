@@ -14,23 +14,36 @@ import "./index.scss"
 const mapStateToProps = (state) => ({
     menus: state.menus.menuList,
     token: state.user.token,
+    userInfo: state.user.userInfo
 })
 const mapDispatchToProps = (dispatch) => ({
     setMenus: data => dispatch(setMenus(data)),
-    getUserInfo:data=> dispatch(getUser(data))
+    getUserInfo: data=> dispatch(getUser(data))
 })
 let timer = null;
-//登陆问题未解决
 const Index = ({menus, token, setMenus, getUserInfo}) => {
     const [loading, setLoading] = useState(true);
     const [height,setHeight] = useState(document.documentElement.clientHeight)
     useEffect(() => {
-        if(token) getUserInfo({token});
-        getMenu().then(res=>{
-            let menus = res.data;
-            setMenus(menus)
-            setLoading(false)
-        }).catch(e => setLoading(false))
+        let ignore = false;
+        if(token){
+            getUserInfo({token}).then(res=>{
+                getMenu(res.data.userInfo.roles).then(res=>{
+                    let menus = res.data || [];
+                    if(!ignore){
+                        setMenus(menus)
+                        setLoading(false)
+                    }
+                }).catch(e => !ignore && setLoading(false))
+            }).catch(e => {
+                !ignore && setLoading(false)
+            })
+        }else{
+            if(!ignore){
+                setMenus([])
+                setLoading(false)
+            }
+        }
         window.addEventListener("resize",function (){
             if(timer){
                 clearTimeout(timer)
@@ -43,7 +56,7 @@ const Index = ({menus, token, setMenus, getUserInfo}) => {
             },100)
         })
         return function (){
-
+            ignore = true
         }
     }, [token, setMenus, getUserInfo])
     if (loading) return (

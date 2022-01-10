@@ -24,7 +24,7 @@ export default function User() {
         let ignore = false;
         getAllUser().then(res => {
             if(!ignore){
-                setData(res.data.data)
+                setData(res.data)
                 setLoading(false)
             }
         }).catch(e => {
@@ -39,18 +39,24 @@ export default function User() {
             dataSource={data}
             loading={loading}
             style={{padding: "20px 0"}}
-            rowKey={record => record.id}
+            rowKey={record => record.uid}
             rowSelection={{...rowSelection, checkStrictly}}
         >
-            <Column align={"center"} title={"id"} key={"id"} dataIndex={"id"}/>
-            <Column align={"center"} title={"头像"} key={"id"} dataIndex={"avatar"} render={avatar => (
+            <Column align={"center"} title={"id"} key={"uid"} dataIndex={"uid"}/>
+            <Column align={"center"} title={"头像"} key={"uid"} dataIndex={"avatar"} render={avatar => (
                 <Avatar shape="square" size={64} src={avatar}/>
             )}/>
-            <Column align={"center"} title={"账号"} key={"id"} dataIndex={"username"}/>
-            <Column align={"center"} title={"密码"} key={"id"} dataIndex={"password"}/>
-            <Column align={"center"} title={"权限"} key={"id"} dataIndex={"roles"} render={roles => (
-                <span>{roles.name}</span>
+            <Column align={"center"} title={"账号"} key={"uid"} dataIndex={"username"}/>
+            <Column align={"center"} title={"手机号"} key={"uid"} dataIndex={"phone"}/>
+            <Column align={"center"} title={"手机号"} key={"uid"} dataIndex={"email"}/>
+            <Column align={"center"} title={"角色id"} key={"uid"} dataIndex={"roles"}/>
+            <Column align={"center"} title={"是否禁用"} key={"uid"} dataIndex={"enabled"} render={enabled => (
+                <span>{enabled===0?"禁用":"启用"}</span>
             )}/>
+            <Column align={"center"} title={"头像"} key={"uid"} dataIndex={"sex"} render={sex => (
+                <span>{sex===0?"女":"男"}</span>
+            )}/>
+            <Column align={"center"} title={"创建时间"} key={"uid"} dataIndex={"createTime"}/>
             <Column align={"center"} title={"操作"} key={"id"} render={col => (<>
                 <Button type="primary" style={{marginRight: "5px", fontSize: "12px"}} size={"small"}>编辑</Button>
                 <Button type="danger" style={{marginRight: "5px", fontSize: "12px"}} size={"small"}>删除</Button>

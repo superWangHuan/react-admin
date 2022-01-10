@@ -4,7 +4,7 @@ import {getRoles} from "@/api/system";
 
 const {Column} = Table
 
-function Auth(props) {
+function Roles(props) {
 
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
@@ -26,7 +26,7 @@ function Auth(props) {
         getRoles().then(res => {
             if(!ignore){
                 setLoading(false)
-                setData(res.data.data)
+                setData(res.data)
             }
         }).catch(e => setLoading(false))
         return function (){
@@ -38,15 +38,12 @@ function Auth(props) {
             dataSource={data}
             loading={loading}
             style={{padding: "20px 0"}}
-            rowKey={record => record.type_id}
+            rowKey={record => record.id}
             rowSelection={{...rowSelection, checkStrictly}}
         >
-            <Column align={"center"} title={"权限id"} key={"type_id"} dataIndex={"type_id"}/>
-            <Column align={"center"} title={"权限简称"} key={"type_id"} dataIndex={"name"}/>
-            <Column align={"center"} title={"菜单id"} key={"type_id"} dataIndex={"menu_id"} render={menu_id => (
-                <span>{menu_id.join(",")}</span>
-            )}/>
-            <Column align={"center"} title={"操作"} key={"type_id"} render={col => (<>
+            <Column align={"center"} title={"角色id"} key={"id"} dataIndex={"id"}/>
+            <Column align={"center"} title={"角色名称"} key={"id"} dataIndex={"name"}/>
+            <Column align={"center"} title={"操作"} key={"id"} render={col => (<>
                 <Button type="text" style={{marginRight: "5px", fontSize: "14px", color: "#2196F3"}}
                         size={"small"}>编辑</Button>
             </>)}/>
@@ -54,4 +51,4 @@ function Auth(props) {
     )
 }
 
-export default Auth;
+export default Roles;

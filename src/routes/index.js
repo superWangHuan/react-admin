@@ -35,6 +35,7 @@ function useRouter(menus) {
             let list = reduceMenuList(menus);
             // 把请求的数据 和 本地pages页面暴露出的路由列表合并
             let routerList = routes.map((router) => {
+                router.keepAlive = router.keepAlive === 1;
                 let find = list.find(
                     (i) => (i.parentPath || "") + i.path === router.path
                 );
@@ -53,7 +54,6 @@ function useRouter(menus) {
     // 监听 本地路由列表 和 合并后的用户菜单列表 同时存在长度大于1时 渲染路由组件
     useEffect(() => {
         const dom = newRoutes.map(item => {
-
             let { key, path } = item;
             let RouterRender = item.keepAlive ? CacheRoute : Route;
             return (

@@ -6,8 +6,8 @@ const dynamicRoutesMap = [
     },
 
     {
-        path: '/system/auth',
-        component: () => import("@/views/system/Auth/Auth"),
+        path: '/system/roles',
+        component: () => import("@/views/system/Roles/Roles"),
     },
 
     {
