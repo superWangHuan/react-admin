@@ -8,7 +8,7 @@ import MainContent from "./MainContent"
 //路由数据处理
 import {setMenus} from "@/store/actions/menu";
 import {getMenu} from "@/api/menus"
-import { getUser } from "@/store/actions/userInfo";
+import {getUser} from "@/store/actions/userInfo";
 import "./index.scss"
 
 const mapStateToProps = (state) => ({
@@ -18,44 +18,39 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
     setMenus: data => dispatch(setMenus(data)),
-    getUserInfo: data=> dispatch(getUser(data))
+    getUserInfo: data => dispatch(getUser(data))
 })
 let timer = null;
+
 const Index = ({menus, token, setMenus, getUserInfo}) => {
     const [loading, setLoading] = useState(true);
-    const [height,setHeight] = useState(document.documentElement.clientHeight)
+    const [height, setHeight] = useState(document.documentElement.clientHeight)
+
     useEffect(() => {
         let ignore = false;
-        if(token){
-            getUserInfo({token}).then(res=>{
-                getMenu(res.data.userInfo.roles).then(res=>{
-                    let menus = res.data || [];
-                    if(!ignore){
-                        setMenus(menus)
-                        setLoading(false)
-                    }
-                }).catch(e => !ignore && setLoading(false))
-            }).catch(e => {
-                !ignore && setLoading(false)
-            })
-        }else{
-            if(!ignore){
-                setMenus([])
-                setLoading(false)
-            }
-        }
-        window.addEventListener("resize",function (){
-            if(timer){
+        getUserInfo().then(res => {
+            getMenu(res.data.userInfo.roles).then(res => {
+                let menus = res.data || [];
+                if (!ignore) {
+                    setMenus(menus)
+                    setLoading(false)
+                }
+            }).catch(e => !ignore && setLoading(false))
+        }).catch(e => {
+            !ignore && setLoading(false)
+        })
+        window.addEventListener("resize", function () {
+            if (timer) {
                 clearTimeout(timer)
                 timer = null
             }
-            timer = setTimeout(()=>{
+            timer = setTimeout(() => {
                 setHeight(document.documentElement.clientHeight)
                 clearTimeout(timer)
                 timer = null
-            },100)
+            }, 100)
         })
-        return function (){
+        return function () {
             ignore = true
         }
     }, [token, setMenus, getUserInfo])
@@ -63,7 +58,7 @@ const Index = ({menus, token, setMenus, getUserInfo}) => {
         <div className="loading-page"><Spin size="large" wrapperClassName="loading-page" tip="Loading..."/></div>
     )
     return (
-        <Layout style={{ height: height }} theme={"light"}>
+        <Layout style={{height: height}} theme={"light"}>
             <SideMenu menus={menus}/>
             <Layout theme={"light"}>
                 <TopHeader>Header</TopHeader>

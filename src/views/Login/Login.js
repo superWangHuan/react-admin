@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state /*, ownProps*/) => {
     return {
-        msg:"这是mapStateToProps中的数据"
+
     };
 };
 
@@ -23,15 +23,37 @@ class Login extends Component {
         this.state = {
             loading: false,
             codeImg:"http://localhost:9000/captcha/code",
-            refreshCodeImage:false
+            refreshCodeImage:false,
+            remember:false,
+            initValues:{}
         }
     }
+    componentDidMount() {
+        let remember = window.localStorage.getItem("remember") === "1"
+        if(remember){
+            let initValue = window.localStorage.getItem("INIT_LOGIN_VALUE")
+            this.setState({
+                initValues:JSON.parse(initValue)
+            })
+        }
+        this.setState({
+            remember
+        })
+    }
+
     handleLoading=(state)=>{
         this.setState({
             loading:state||false
         })
     }
     onFinish = (e) => {
+        if(this.state.remember){
+            let info = {
+                username: e.username,
+                password: e.password
+            }
+            window.localStorage.setItem("INIT_LOGIN_VALUE",JSON.stringify(info))
+        }
         this.props.handleLogin(e,this.props.history) //登录
         this.refreshCode()
     }
@@ -48,13 +70,18 @@ class Login extends Component {
             })
         },0)
     }
+    onChange=(e)=>{
+        window.localStorage.setItem("remember",e.target.checked ? "1":"0")
+        this.setState({
+            remember:e.target.checked
+        })
+    }
     render() {
         const iconStyle = { color: "#999999" }
-        const { codeImg,refreshCodeImage } = this.state
+        const { codeImg,refreshCodeImage,remember,initValues } = this.state
         return (
             <div className="login">
                 <div className="login-container">
-                    <div className="bg-box"></div>
                     <div className="avatar-box">
                         <img src={avatar} className="avatar" alt=""/>
                     </div>
@@ -63,7 +90,7 @@ class Login extends Component {
                             name="basic"
                             labelCol={{ span: 0 }}
                             wrapperCol={{ span: 24 }}
-                            initialValues={{ remember: true }}
+                            initialValues={initValues}
                             onFinish={this.onFinish}
                             onFinishFailed={this.onFinishFailed}
                             autoComplete="off"
@@ -123,7 +150,7 @@ class Login extends Component {
                                 </div>
                             </Form.Item>
                             <div className="remember-password item">
-                                    <Checkbox><span style={{color:"#999"}}>记住密码</span></Checkbox>
+                                    <Checkbox checked={ remember } onChange={this.onChange}><span style={{color:"#999"}}>记住密码</span></Checkbox>
                                 </div>
                             <Form.Item>
                                 <div className="item">

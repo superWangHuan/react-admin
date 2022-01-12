@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react";
-import {Table, Button} from 'antd';
+import {Table, Button, Modal, Form, Input} from 'antd';
 import {connect} from "react-redux";
 import Icon from "@/components/Icon/Icon";
 import {getAllMenu} from "@/api/menus";
-
 
 const {Column} = Table;
 const mapStateToProps = state => ({
@@ -14,7 +13,7 @@ function Menu() {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([])
     const [checkStrictly] = useState(false);
-    // rowSelection objects indicates the need for row selection
+    const [isModalVisible, setModalVisible] = useState(true)
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -26,6 +25,18 @@ function Menu() {
             console.log(selected, selectedRows, changeRows);
         },
     };
+    const handleSubmit = () => {
+        handleModel(true)
+    }
+    const handleCancel = () => {
+        handleModel(false)
+    }
+    const handleModel = (visible) => {
+        setModalVisible(visible)
+    }
+    const edit = (e) => {
+        handleModel(true)
+    }
     useEffect(() => {
         let ignore = false;
         getAllMenu().then(res => {
@@ -40,6 +51,33 @@ function Menu() {
     }, [])
     return (
         <>
+            {/*编辑框*/}
+            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleSubmit} onCancel={handleCancel}>
+                <Form
+                    name="basic"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    initialValues={{ remember: true }}
+
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        label="Username"
+                        name="username"
+                        rules={[{ required: true, message: 'Please input your username!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
+                </Form>
+            </Modal>
             <Table
                 dataSource={data} loading={loading}
                 style={{padding: "20px 0"}}
@@ -61,7 +99,7 @@ function Menu() {
                 />
                 <Column align={"center"} title={"菜单排序"} key={"menu_id"} dataIndex={"weight"}/>
                 <Column align={"center"} title={"操作"} key={"menu_id"} render={col => (<>
-                    <Button type="primary" style={{marginRight: "5px", fontSize: "12px"}} size={"small"}>编辑</Button>
+                    <Button type="primary" style={{marginRight: "5px", fontSize: "12px"}} size={"small"} onClick={edit}>编辑</Button>
                     <Button type="danger" style={{marginRight: "5px", fontSize: "12px"}} size={"small"}>删除</Button>
                 </>)}/>
             </Table>
